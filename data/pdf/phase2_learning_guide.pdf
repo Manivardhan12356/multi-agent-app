@@ -1,0 +1,929 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R 37 0 R 39 0 R] /Count 17 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+6 0 obj
+<< /Length 1863 >>
+stream
+BT /F2 18 Tf 48.00 772.00 Td (Phase 2 Machine Learning Guide) Tj ET
+BT /F1 10.5 Tf 48.00 732.00 Td (Theory and examples for boosting, evaluation, tuning, SVM, Naive Bayes, and feature) Tj ET
+BT /F1 10.5 Tf 48.00 717.00 Td (engineering.) Tj ET
+BT /F2 14 Tf 48.00 680.00 Td (Learning Order) Tj ET
+BT /F1 10.5 Tf 48.00 648.00 Td (1. XGBoost and LightGBM) Tj ET
+BT /F1 10.5 Tf 48.00 629.00 Td (2. Cross validation) Tj ET
+BT /F1 10.5 Tf 48.00 610.00 Td (3. Model evaluation metrics) Tj ET
+BT /F1 10.5 Tf 48.00 591.00 Td (4. Hyperparameter tuning) Tj ET
+BT /F1 10.5 Tf 48.00 572.00 Td (5. SVM) Tj ET
+BT /F1 10.5 Tf 48.00 553.00 Td (6. Naive Bayes) Tj ET
+BT /F1 10.5 Tf 48.00 534.00 Td (7. Feature engineering) Tj ET
+BT /F1 10.5 Tf 48.00 515.00 Td (8. Mini project workflow) Tj ET
+BT /F2 18 Tf 48.00 460.00 Td (1. XGBoost and LightGBM) Tj ET
+BT /F2 14 Tf 48.00 410.00 Td (Theory) Tj ET
+BT /F1 10.5 Tf 48.00 378.00 Td (XGBoost means Extreme Gradient Boosting. It is a powerful tree-based machine learning) Tj ET
+BT /F1 10.5 Tf 48.00 363.00 Td (algorithm.) Tj ET
+BT /F1 10.5 Tf 48.00 336.00 Td (Random Forest builds many trees independently and combines their results. XGBoost) Tj ET
+BT /F1 10.5 Tf 48.00 321.00 Td (builds trees one by one. Each new tree tries to correct the mistakes made by previous) Tj ET
+BT /F1 10.5 Tf 48.00 306.00 Td (trees.) Tj ET
+BT /F1 10.5 Tf 48.00 279.00 Td (Simple idea:) Tj ET
+BT /F3 8.4 Tf 48.00 251.00 Td (Tree 1 makes predictions) Tj ET
+BT /F3 8.4 Tf 48.00 239.50 Td (Tree 2 fixes errors from Tree 1) Tj ET
+BT /F3 8.4 Tf 48.00 228.00 Td (Tree 3 fixes remaining errors) Tj ET
+BT /F3 8.4 Tf 48.00 216.50 Td (Final prediction = combined result of all trees) Tj ET
+BT /F1 10.5 Tf 48.00 196.00 Td (This technique is called boosting.) Tj ET
+BT /F2 14 Tf 48.00 159.00 Td (Random Forest vs XGBoost) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 1) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 3398 >>
+stream
+BT /F3 8.4 Tf 48.00 783.00 Td (Random Forest:) Tj ET
+BT /F3 8.4 Tf 48.00 771.50 Td (Trees are trained mostly independently.) Tj ET
+BT /F3 8.4 Tf 48.00 760.00 Td (Final result is voting or averaging.) Tj ET
+BT /F3 8.4 Tf 48.00 748.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 737.00 Td (XGBoost:) Tj ET
+BT /F3 8.4 Tf 48.00 725.50 Td (Trees are trained sequentially.) Tj ET
+BT /F3 8.4 Tf 48.00 714.00 Td (Each new tree learns from previous errors.) Tj ET
+BT /F2 14 Tf 48.00 683.50 Td (Why XGBoost is useful) Tj ET
+BT /F1 10.5 Tf 48.00 651.50 Td (- Very strong for tabular data) Tj ET
+BT /F1 10.5 Tf 48.00 632.50 Td (- Works for classification and regression) Tj ET
+BT /F1 10.5 Tf 48.00 613.50 Td (- Can learn nonlinear patterns) Tj ET
+BT /F1 10.5 Tf 48.00 594.50 Td (- Includes regularization to reduce overfitting) Tj ET
+BT /F1 10.5 Tf 48.00 575.50 Td (- Often performs better than basic models) Tj ET
+BT /F2 14 Tf 48.00 538.50 Td (Important XGBoost hyperparameters) Tj ET
+BT /F3 8.4 Tf 48.00 505.50 Td (n_estimators       Number of boosting trees) Tj ET
+BT /F3 8.4 Tf 48.00 494.00 Td (learning_rate      How fast the model learns) Tj ET
+BT /F3 8.4 Tf 48.00 482.50 Td (max_depth          Maximum depth of each tree) Tj ET
+BT /F3 8.4 Tf 48.00 471.00 Td (subsample          Fraction of rows used per tree) Tj ET
+BT /F3 8.4 Tf 48.00 459.50 Td (colsample_bytree   Fraction of columns used per tree) Tj ET
+BT /F3 8.4 Tf 48.00 448.00 Td (gamma              Minimum loss reduction needed to split) Tj ET
+BT /F3 8.4 Tf 48.00 436.50 Td (reg_alpha          L1 regularization) Tj ET
+BT /F3 8.4 Tf 48.00 425.00 Td (reg_lambda         L2 regularization) Tj ET
+BT /F2 14 Tf 48.00 394.50 Td (XGBoost classification example) Tj ET
+BT /F3 8.4 Tf 48.00 361.50 Td (from sklearn.datasets import load_breast_cancer) Tj ET
+BT /F3 8.4 Tf 48.00 350.00 Td (from sklearn.model_selection import train_test_split) Tj ET
+BT /F3 8.4 Tf 48.00 338.50 Td (from sklearn.metrics import accuracy_score, classification_report) Tj ET
+BT /F3 8.4 Tf 48.00 327.00 Td (from xgboost import XGBClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 315.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 304.00 Td (data = load_breast_cancer\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 292.50 Td (X = data.data) Tj ET
+BT /F3 8.4 Tf 48.00 281.00 Td (y = data.target) Tj ET
+BT /F3 8.4 Tf 48.00 269.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 258.00 Td (X_train, X_test, y_train, y_test = train_test_split\() Tj ET
+BT /F3 8.4 Tf 48.00 246.50 Td (    X, y, test_size=0.2, random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 235.00 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 223.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 212.00 Td (model = XGBClassifier\() Tj ET
+BT /F3 8.4 Tf 48.00 200.50 Td (    n_estimators=100,) Tj ET
+BT /F3 8.4 Tf 48.00 189.00 Td (    learning_rate=0.1,) Tj ET
+BT /F3 8.4 Tf 48.00 177.50 Td (    max_depth=3,) Tj ET
+BT /F3 8.4 Tf 48.00 166.00 Td (    random_state=42,) Tj ET
+BT /F3 8.4 Tf 48.00 154.50 Td (    eval_metric="logloss") Tj ET
+BT /F3 8.4 Tf 48.00 143.00 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 131.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 120.00 Td (model.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 108.50 Td (y_pred = model.predict\(X_test\)) Tj ET
+BT /F3 8.4 Tf 48.00 97.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 85.50 Td (print\("Accuracy:", accuracy_score\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 74.00 Td (print\(classification_report\(y_test, y_pred\)\)) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 2) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 2866 >>
+stream
+BT /F2 14 Tf 48.00 774.00 Td (XGBoost regression example) Tj ET
+BT /F3 8.4 Tf 48.00 741.00 Td (from sklearn.datasets import fetch_california_housing) Tj ET
+BT /F3 8.4 Tf 48.00 729.50 Td (from sklearn.model_selection import train_test_split) Tj ET
+BT /F3 8.4 Tf 48.00 718.00 Td (from sklearn.metrics import mean_squared_error, r2_score) Tj ET
+BT /F3 8.4 Tf 48.00 706.50 Td (from xgboost import XGBRegressor) Tj ET
+BT /F3 8.4 Tf 48.00 695.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 683.50 Td (data = fetch_california_housing\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 672.00 Td (X = data.data) Tj ET
+BT /F3 8.4 Tf 48.00 660.50 Td (y = data.target) Tj ET
+BT /F3 8.4 Tf 48.00 649.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 637.50 Td (X_train, X_test, y_train, y_test = train_test_split\() Tj ET
+BT /F3 8.4 Tf 48.00 626.00 Td (    X, y, test_size=0.2, random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 614.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 603.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 591.50 Td (model = XGBRegressor\() Tj ET
+BT /F3 8.4 Tf 48.00 580.00 Td (    n_estimators=100,) Tj ET
+BT /F3 8.4 Tf 48.00 568.50 Td (    learning_rate=0.1,) Tj ET
+BT /F3 8.4 Tf 48.00 557.00 Td (    max_depth=3,) Tj ET
+BT /F3 8.4 Tf 48.00 545.50 Td (    random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 534.00 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 522.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 511.00 Td (model.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 499.50 Td (y_pred = model.predict\(X_test\)) Tj ET
+BT /F3 8.4 Tf 48.00 488.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 476.50 Td (print\("MSE:", mean_squared_error\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 465.00 Td (print\("R2:", r2_score\(y_test, y_pred\)\)) Tj ET
+BT /F2 14 Tf 48.00 434.50 Td (LightGBM) Tj ET
+BT /F1 10.5 Tf 48.00 402.50 Td (LightGBM is another gradient boosting library. It is often faster than XGBoost on) Tj ET
+BT /F1 10.5 Tf 48.00 387.50 Td (large datasets.) Tj ET
+BT /F1 10.5 Tf 48.00 360.50 Td (Use LightGBM when:) Tj ET
+BT /F1 10.5 Tf 48.00 333.50 Td (- The dataset is large) Tj ET
+BT /F1 10.5 Tf 48.00 314.50 Td (- You need fast training) Tj ET
+BT /F1 10.5 Tf 48.00 295.50 Td (- You have many rows or many features) Tj ET
+BT /F1 10.5 Tf 48.00 268.50 Td (Basic LightGBM example:) Tj ET
+BT /F3 8.4 Tf 48.00 240.50 Td (from lightgbm import LGBMClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 229.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 217.50 Td (model = LGBMClassifier\() Tj ET
+BT /F3 8.4 Tf 48.00 206.00 Td (    n_estimators=100,) Tj ET
+BT /F3 8.4 Tf 48.00 194.50 Td (    learning_rate=0.1,) Tj ET
+BT /F3 8.4 Tf 48.00 183.00 Td (    max_depth=-1,) Tj ET
+BT /F3 8.4 Tf 48.00 171.50 Td (    random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 160.00 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 148.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 137.00 Td (model.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 125.50 Td (y_pred = model.predict\(X_test\)) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 3) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 2656 >>
+stream
+BT /F2 18 Tf 48.00 772.00 Td (2. Cross Validation) Tj ET
+BT /F2 14 Tf 48.00 722.00 Td (Theory) Tj ET
+BT /F1 10.5 Tf 48.00 690.00 Td (A single train-test split can be lucky or unlucky. Cross validation gives a more) Tj ET
+BT /F1 10.5 Tf 48.00 675.00 Td (reliable performance estimate by testing the model on multiple splits.) Tj ET
+BT /F1 10.5 Tf 48.00 648.00 Td (In 5-fold cross validation:) Tj ET
+BT /F3 8.4 Tf 48.00 620.00 Td (Dataset is split into 5 parts.) Tj ET
+BT /F3 8.4 Tf 48.00 608.50 Td (Round 1: fold 1 is validation, folds 2-5 are training.) Tj ET
+BT /F3 8.4 Tf 48.00 597.00 Td (Round 2: fold 2 is validation, folds 1,3,4,5 are training.) Tj ET
+BT /F3 8.4 Tf 48.00 585.50 Td (This repeats until every fold has been validation once.) Tj ET
+BT /F3 8.4 Tf 48.00 574.00 Td (Final score = average of all validation scores.) Tj ET
+BT /F2 14 Tf 48.00 543.50 Td (Why use cross validation) Tj ET
+BT /F1 10.5 Tf 48.00 511.50 Td (- More reliable than one split) Tj ET
+BT /F1 10.5 Tf 48.00 492.50 Td (- Helps compare models fairly) Tj ET
+BT /F1 10.5 Tf 48.00 473.50 Td (- Reduces dependency on one random split) Tj ET
+BT /F2 14 Tf 48.00 436.50 Td (Cross validation example) Tj ET
+BT /F3 8.4 Tf 48.00 403.50 Td (from sklearn.datasets import load_iris) Tj ET
+BT /F3 8.4 Tf 48.00 392.00 Td (from sklearn.model_selection import cross_val_score) Tj ET
+BT /F3 8.4 Tf 48.00 380.50 Td (from sklearn.ensemble import RandomForestClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 369.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 357.50 Td (data = load_iris\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 346.00 Td (X = data.data) Tj ET
+BT /F3 8.4 Tf 48.00 334.50 Td (y = data.target) Tj ET
+BT /F3 8.4 Tf 48.00 323.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 311.50 Td (model = RandomForestClassifier\(random_state=42\)) Tj ET
+BT /F3 8.4 Tf 48.00 300.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 288.50 Td (scores = cross_val_score\() Tj ET
+BT /F3 8.4 Tf 48.00 277.00 Td (    model,) Tj ET
+BT /F3 8.4 Tf 48.00 265.50 Td (    X,) Tj ET
+BT /F3 8.4 Tf 48.00 254.00 Td (    y,) Tj ET
+BT /F3 8.4 Tf 48.00 242.50 Td (    cv=5,) Tj ET
+BT /F3 8.4 Tf 48.00 231.00 Td (    scoring="accuracy") Tj ET
+BT /F3 8.4 Tf 48.00 219.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 208.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 196.50 Td (print\("Scores:", scores\)) Tj ET
+BT /F3 8.4 Tf 48.00 185.00 Td (print\("Average accuracy:", scores.mean\(\)\)) Tj ET
+BT /F2 14 Tf 48.00 154.50 Td (Stratified cross validation) Tj ET
+BT /F1 10.5 Tf 48.00 122.50 Td (For classification, StratifiedKFold keeps class ratios similar in every fold. This is) Tj ET
+BT /F1 10.5 Tf 48.00 107.50 Td (useful when classes are imbalanced.) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 4) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 2750 >>
+stream
+BT /F3 8.4 Tf 48.00 783.00 Td (from sklearn.model_selection import StratifiedKFold, cross_val_score) Tj ET
+BT /F3 8.4 Tf 48.00 771.50 Td (from sklearn.ensemble import RandomForestClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 760.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 748.50 Td (cv = StratifiedKFold\(n_splits=5, shuffle=True, random_state=42\)) Tj ET
+BT /F3 8.4 Tf 48.00 737.00 Td (model = RandomForestClassifier\(random_state=42\)) Tj ET
+BT /F3 8.4 Tf 48.00 725.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 714.00 Td (scores = cross_val_score\(model, X, y, cv=cv, scoring="accuracy"\)) Tj ET
+BT /F3 8.4 Tf 48.00 702.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 691.00 Td (print\(scores\)) Tj ET
+BT /F3 8.4 Tf 48.00 679.50 Td (print\(scores.mean\(\)\)) Tj ET
+BT /F2 14 Tf 48.00 649.00 Td (Important warning: data leakage) Tj ET
+BT /F1 10.5 Tf 48.00 617.00 Td (Do not scale or impute using the full dataset before cross validation. Put) Tj ET
+BT /F1 10.5 Tf 48.00 602.00 Td (preprocessing inside a Pipeline.) Tj ET
+BT /F1 10.5 Tf 48.00 575.00 Td (Wrong:) Tj ET
+BT /F3 8.4 Tf 48.00 547.00 Td (X_scaled = scaler.fit_transform\(X\)) Tj ET
+BT /F3 8.4 Tf 48.00 535.50 Td (cross_val_score\(model, X_scaled, y, cv=5\)) Tj ET
+BT /F1 10.5 Tf 48.00 515.00 Td (Correct:) Tj ET
+BT /F3 8.4 Tf 48.00 487.00 Td (from sklearn.pipeline import Pipeline) Tj ET
+BT /F3 8.4 Tf 48.00 475.50 Td (from sklearn.preprocessing import StandardScaler) Tj ET
+BT /F3 8.4 Tf 48.00 464.00 Td (from sklearn.svm import SVC) Tj ET
+BT /F3 8.4 Tf 48.00 452.50 Td (from sklearn.model_selection import cross_val_score) Tj ET
+BT /F3 8.4 Tf 48.00 441.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 429.50 Td (pipeline = Pipeline\([) Tj ET
+BT /F3 8.4 Tf 48.00 418.00 Td (    \("scaler", StandardScaler\(\)\),) Tj ET
+BT /F3 8.4 Tf 48.00 406.50 Td (    \("model", SVC\(\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 395.00 Td (]\)) Tj ET
+BT /F3 8.4 Tf 48.00 383.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 372.00 Td (scores = cross_val_score\(pipeline, X, y, cv=5\)) Tj ET
+BT /F2 18 Tf 48.00 323.50 Td (3. Model Evaluation Metrics) Tj ET
+BT /F2 14 Tf 48.00 273.50 Td (Theory) Tj ET
+BT /F1 10.5 Tf 48.00 241.50 Td (Accuracy is not always enough. If the dataset is imbalanced, a model can have high) Tj ET
+BT /F1 10.5 Tf 48.00 226.50 Td (accuracy but still fail on the important class.) Tj ET
+BT /F1 10.5 Tf 48.00 199.50 Td (Example:) Tj ET
+BT /F3 8.4 Tf 48.00 171.50 Td (100 patients) Tj ET
+BT /F3 8.4 Tf 48.00 160.00 Td (95 healthy) Tj ET
+BT /F3 8.4 Tf 48.00 148.50 Td (5 sick) Tj ET
+BT /F3 8.4 Tf 48.00 137.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 125.50 Td (If model predicts everyone is healthy:) Tj ET
+BT /F3 8.4 Tf 48.00 114.00 Td (Accuracy = 95%) Tj ET
+BT /F3 8.4 Tf 48.00 102.50 Td (But it finds 0 sick patients.) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 5) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 3345 >>
+stream
+BT /F2 14 Tf 48.00 774.00 Td (Classification metrics) Tj ET
+BT /F3 8.4 Tf 48.00 741.00 Td (Accuracy   Correct predictions / all predictions) Tj ET
+BT /F3 8.4 Tf 48.00 729.50 Td (Precision  Of predicted positives, how many were truly positive) Tj ET
+BT /F3 8.4 Tf 48.00 718.00 Td (Recall     Of actual positives, how many were found) Tj ET
+BT /F3 8.4 Tf 48.00 706.50 Td (F1-score   Balance of precision and recall) Tj ET
+BT /F3 8.4 Tf 48.00 695.00 Td (ROC-AUC    Ranking quality for binary classification) Tj ET
+BT /F2 14 Tf 48.00 664.50 Td (Confusion matrix) Tj ET
+BT /F3 8.4 Tf 48.00 631.50 Td (                 Predicted 0   Predicted 1) Tj ET
+BT /F3 8.4 Tf 48.00 620.00 Td (Actual 0         TN            FP) Tj ET
+BT /F3 8.4 Tf 48.00 608.50 Td (Actual 1         FN            TP) Tj ET
+BT /F3 8.4 Tf 48.00 597.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 585.50 Td (TN = true negative) Tj ET
+BT /F3 8.4 Tf 48.00 574.00 Td (FP = false positive) Tj ET
+BT /F3 8.4 Tf 48.00 562.50 Td (FN = false negative) Tj ET
+BT /F3 8.4 Tf 48.00 551.00 Td (TP = true positive) Tj ET
+BT /F2 14 Tf 48.00 520.50 Td (Classification example) Tj ET
+BT /F3 8.4 Tf 48.00 487.50 Td (from sklearn.datasets import load_breast_cancer) Tj ET
+BT /F3 8.4 Tf 48.00 476.00 Td (from sklearn.model_selection import train_test_split) Tj ET
+BT /F3 8.4 Tf 48.00 464.50 Td (from sklearn.ensemble import RandomForestClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 453.00 Td (from sklearn.metrics import \() Tj ET
+BT /F3 8.4 Tf 48.00 441.50 Td (    accuracy_score,) Tj ET
+BT /F3 8.4 Tf 48.00 430.00 Td (    precision_score,) Tj ET
+BT /F3 8.4 Tf 48.00 418.50 Td (    recall_score,) Tj ET
+BT /F3 8.4 Tf 48.00 407.00 Td (    f1_score,) Tj ET
+BT /F3 8.4 Tf 48.00 395.50 Td (    confusion_matrix,) Tj ET
+BT /F3 8.4 Tf 48.00 384.00 Td (    classification_report) Tj ET
+BT /F3 8.4 Tf 48.00 372.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 361.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 349.50 Td (data = load_breast_cancer\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 338.00 Td (X = data.data) Tj ET
+BT /F3 8.4 Tf 48.00 326.50 Td (y = data.target) Tj ET
+BT /F3 8.4 Tf 48.00 315.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 303.50 Td (X_train, X_test, y_train, y_test = train_test_split\() Tj ET
+BT /F3 8.4 Tf 48.00 292.00 Td (    X, y, test_size=0.2, random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 280.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 269.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 257.50 Td (model = RandomForestClassifier\(random_state=42\)) Tj ET
+BT /F3 8.4 Tf 48.00 246.00 Td (model.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 234.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 223.00 Td (y_pred = model.predict\(X_test\)) Tj ET
+BT /F3 8.4 Tf 48.00 211.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 200.00 Td (print\("Accuracy:", accuracy_score\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 188.50 Td (print\("Precision:", precision_score\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 177.00 Td (print\("Recall:", recall_score\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 165.50 Td (print\("F1:", f1_score\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 154.00 Td (print\("Confusion matrix:"\)) Tj ET
+BT /F3 8.4 Tf 48.00 142.50 Td (print\(confusion_matrix\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 131.00 Td (print\(classification_report\(y_test, y_pred\)\)) Tj ET
+BT /F2 14 Tf 48.00 100.50 Td (Regression metrics) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 6) Tj ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 2570 >>
+stream
+BT /F3 8.4 Tf 48.00 783.00 Td (MAE     Mean absolute error) Tj ET
+BT /F3 8.4 Tf 48.00 771.50 Td (MSE     Mean squared error) Tj ET
+BT /F3 8.4 Tf 48.00 760.00 Td (RMSE    Square root of MSE) Tj ET
+BT /F3 8.4 Tf 48.00 748.50 Td (R2      How much variance the model explains) Tj ET
+BT /F1 10.5 Tf 48.00 728.00 Td (Regression example:) Tj ET
+BT /F3 8.4 Tf 48.00 700.00 Td (from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score) Tj ET
+BT /F3 8.4 Tf 48.00 688.50 Td (import numpy as np) Tj ET
+BT /F3 8.4 Tf 48.00 677.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 665.50 Td (mae = mean_absolute_error\(y_test, y_pred\)) Tj ET
+BT /F3 8.4 Tf 48.00 654.00 Td (mse = mean_squared_error\(y_test, y_pred\)) Tj ET
+BT /F3 8.4 Tf 48.00 642.50 Td (rmse = np.sqrt\(mse\)) Tj ET
+BT /F3 8.4 Tf 48.00 631.00 Td (r2 = r2_score\(y_test, y_pred\)) Tj ET
+BT /F3 8.4 Tf 48.00 619.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 608.00 Td (print\("MAE:", mae\)) Tj ET
+BT /F3 8.4 Tf 48.00 596.50 Td (print\("RMSE:", rmse\)) Tj ET
+BT /F3 8.4 Tf 48.00 585.00 Td (print\("R2:", r2\)) Tj ET
+BT /F2 14 Tf 48.00 554.50 Td (Which metric should you choose?) Tj ET
+BT /F3 8.4 Tf 48.00 521.50 Td (Balanced classification problem: accuracy can be OK.) Tj ET
+BT /F3 8.4 Tf 48.00 510.00 Td (Imbalanced classification problem: use precision, recall, F1, ROC-AUC.) Tj ET
+BT /F3 8.4 Tf 48.00 498.50 Td (Medical detection: recall is often very important.) Tj ET
+BT /F3 8.4 Tf 48.00 487.00 Td (Spam detection: precision can be important.) Tj ET
+BT /F3 8.4 Tf 48.00 475.50 Td (Regression: use MAE, RMSE, and R2.) Tj ET
+BT /F2 18 Tf 48.00 427.00 Td (4. Hyperparameter Tuning) Tj ET
+BT /F2 14 Tf 48.00 377.00 Td (Theory) Tj ET
+BT /F1 10.5 Tf 48.00 345.00 Td (Parameters are learned by the model during training. Hyperparameters are settings) Tj ET
+BT /F1 10.5 Tf 48.00 330.00 Td (chosen before training.) Tj ET
+BT /F1 10.5 Tf 48.00 303.00 Td (Example:) Tj ET
+BT /F3 8.4 Tf 48.00 275.00 Td (RandomForestClassifier\() Tj ET
+BT /F3 8.4 Tf 48.00 263.50 Td (    n_estimators=100,) Tj ET
+BT /F3 8.4 Tf 48.00 252.00 Td (    max_depth=5) Tj ET
+BT /F3 8.4 Tf 48.00 240.50 Td (\)) Tj ET
+BT /F1 10.5 Tf 48.00 220.00 Td (Here, `n_estimators` and `max_depth` are hyperparameters.) Tj ET
+BT /F2 14 Tf 48.00 183.00 Td (Why tune hyperparameters?) Tj ET
+BT /F1 10.5 Tf 48.00 151.00 Td (Default settings can work, but they are not always best. Tuning tries different) Tj ET
+BT /F1 10.5 Tf 48.00 136.00 Td (settings to find a better model.) Tj ET
+BT /F2 14 Tf 48.00 99.00 Td (GridSearchCV) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 7) Tj ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 18 0 R >>
+endobj
+20 0 obj
+<< /Length 3310 >>
+stream
+BT /F1 10.5 Tf 48.00 784.00 Td (GridSearchCV does:) Tj ET
+BT /F3 8.4 Tf 48.00 756.00 Td (Grid Search + Cross Validation) Tj ET
+BT /F1 10.5 Tf 48.00 735.50 Td (It tries every hyperparameter combination you provide, then uses cross validation to) Tj ET
+BT /F1 10.5 Tf 48.00 720.50 Td (score each combination.) Tj ET
+BT /F1 10.5 Tf 48.00 693.50 Td (Example:) Tj ET
+BT /F3 8.4 Tf 48.00 665.50 Td (n_estimators = [50, 100, 200]) Tj ET
+BT /F3 8.4 Tf 48.00 654.00 Td (max_depth = [3, 5, 10]) Tj ET
+BT /F3 8.4 Tf 48.00 642.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 631.00 Td (Total combinations = 3 x 3 = 9) Tj ET
+BT /F3 8.4 Tf 48.00 619.50 Td (If cv=5, model trains 9 x 5 = 45 times.) Tj ET
+BT /F2 14 Tf 48.00 589.00 Td (GridSearchCV example) Tj ET
+BT /F3 8.4 Tf 48.00 556.00 Td (from sklearn.datasets import load_breast_cancer) Tj ET
+BT /F3 8.4 Tf 48.00 544.50 Td (from sklearn.model_selection import train_test_split, GridSearchCV) Tj ET
+BT /F3 8.4 Tf 48.00 533.00 Td (from sklearn.ensemble import RandomForestClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 521.50 Td (from sklearn.metrics import accuracy_score, classification_report) Tj ET
+BT /F3 8.4 Tf 48.00 510.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 498.50 Td (data = load_breast_cancer\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 487.00 Td (X = data.data) Tj ET
+BT /F3 8.4 Tf 48.00 475.50 Td (y = data.target) Tj ET
+BT /F3 8.4 Tf 48.00 464.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 452.50 Td (X_train, X_test, y_train, y_test = train_test_split\() Tj ET
+BT /F3 8.4 Tf 48.00 441.00 Td (    X, y, test_size=0.2, random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 429.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 418.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 406.50 Td (model = RandomForestClassifier\(random_state=42\)) Tj ET
+BT /F3 8.4 Tf 48.00 395.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 383.50 Td (param_grid = {) Tj ET
+BT /F3 8.4 Tf 48.00 372.00 Td (    "n_estimators": [50, 100, 200],) Tj ET
+BT /F3 8.4 Tf 48.00 360.50 Td (    "max_depth": [3, 5, 10, None],) Tj ET
+BT /F3 8.4 Tf 48.00 349.00 Td (    "min_samples_split": [2, 5, 10]) Tj ET
+BT /F3 8.4 Tf 48.00 337.50 Td (}) Tj ET
+BT /F3 8.4 Tf 48.00 326.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 314.50 Td (grid = GridSearchCV\() Tj ET
+BT /F3 8.4 Tf 48.00 303.00 Td (    estimator=model,) Tj ET
+BT /F3 8.4 Tf 48.00 291.50 Td (    param_grid=param_grid,) Tj ET
+BT /F3 8.4 Tf 48.00 280.00 Td (    cv=5,) Tj ET
+BT /F3 8.4 Tf 48.00 268.50 Td (    scoring="accuracy",) Tj ET
+BT /F3 8.4 Tf 48.00 257.00 Td (    n_jobs=-1) Tj ET
+BT /F3 8.4 Tf 48.00 245.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 234.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 222.50 Td (grid.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 211.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 199.50 Td (print\("Best parameters:", grid.best_params_\)) Tj ET
+BT /F3 8.4 Tf 48.00 188.00 Td (print\("Best CV score:", grid.best_score_\)) Tj ET
+BT /F3 8.4 Tf 48.00 176.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 165.00 Td (best_model = grid.best_estimator_) Tj ET
+BT /F3 8.4 Tf 48.00 153.50 Td (y_pred = best_model.predict\(X_test\)) Tj ET
+BT /F3 8.4 Tf 48.00 142.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 130.50 Td (print\("Test accuracy:", accuracy_score\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 119.00 Td (print\(classification_report\(y_test, y_pred\)\)) Tj ET
+BT /F2 14 Tf 48.00 88.50 Td (RandomizedSearchCV) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 8) Tj ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 20 0 R >>
+endobj
+22 0 obj
+<< /Length 3522 >>
+stream
+BT /F1 10.5 Tf 48.00 784.00 Td (RandomizedSearchCV samples random combinations instead of trying every combination. It) Tj ET
+BT /F1 10.5 Tf 48.00 769.00 Td (is useful for large search spaces.) Tj ET
+BT /F3 8.4 Tf 48.00 741.00 Td (from sklearn.model_selection import RandomizedSearchCV) Tj ET
+BT /F3 8.4 Tf 48.00 729.50 Td (from sklearn.ensemble import RandomForestClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 718.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 706.50 Td (param_dist = {) Tj ET
+BT /F3 8.4 Tf 48.00 695.00 Td (    "n_estimators": [50, 100, 200, 300, 500],) Tj ET
+BT /F3 8.4 Tf 48.00 683.50 Td (    "max_depth": [3, 5, 10, 15, None],) Tj ET
+BT /F3 8.4 Tf 48.00 672.00 Td (    "min_samples_split": [2, 5, 10],) Tj ET
+BT /F3 8.4 Tf 48.00 660.50 Td (    "min_samples_leaf": [1, 2, 4],) Tj ET
+BT /F3 8.4 Tf 48.00 649.00 Td (    "max_features": ["sqrt", "log2"]) Tj ET
+BT /F3 8.4 Tf 48.00 637.50 Td (}) Tj ET
+BT /F3 8.4 Tf 48.00 626.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 614.50 Td (search = RandomizedSearchCV\() Tj ET
+BT /F3 8.4 Tf 48.00 603.00 Td (    estimator=RandomForestClassifier\(random_state=42\),) Tj ET
+BT /F3 8.4 Tf 48.00 591.50 Td (    param_distributions=param_dist,) Tj ET
+BT /F3 8.4 Tf 48.00 580.00 Td (    n_iter=20,) Tj ET
+BT /F3 8.4 Tf 48.00 568.50 Td (    cv=5,) Tj ET
+BT /F3 8.4 Tf 48.00 557.00 Td (    scoring="accuracy",) Tj ET
+BT /F3 8.4 Tf 48.00 545.50 Td (    n_jobs=-1,) Tj ET
+BT /F3 8.4 Tf 48.00 534.00 Td (    random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 522.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 511.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 499.50 Td (search.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 488.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 476.50 Td (print\(search.best_params_\)) Tj ET
+BT /F3 8.4 Tf 48.00 465.00 Td (print\(search.best_score_\)) Tj ET
+BT /F2 14 Tf 48.00 434.50 Td (XGBoost tuning example) Tj ET
+BT /F3 8.4 Tf 48.00 401.50 Td (from sklearn.model_selection import GridSearchCV) Tj ET
+BT /F3 8.4 Tf 48.00 390.00 Td (from xgboost import XGBClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 378.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 367.00 Td (model = XGBClassifier\() Tj ET
+BT /F3 8.4 Tf 48.00 355.50 Td (    random_state=42,) Tj ET
+BT /F3 8.4 Tf 48.00 344.00 Td (    eval_metric="logloss") Tj ET
+BT /F3 8.4 Tf 48.00 332.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 321.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 309.50 Td (param_grid = {) Tj ET
+BT /F3 8.4 Tf 48.00 298.00 Td (    "n_estimators": [50, 100, 200],) Tj ET
+BT /F3 8.4 Tf 48.00 286.50 Td (    "learning_rate": [0.01, 0.1, 0.2],) Tj ET
+BT /F3 8.4 Tf 48.00 275.00 Td (    "max_depth": [3, 5, 7],) Tj ET
+BT /F3 8.4 Tf 48.00 263.50 Td (    "subsample": [0.8, 1.0],) Tj ET
+BT /F3 8.4 Tf 48.00 252.00 Td (    "colsample_bytree": [0.8, 1.0]) Tj ET
+BT /F3 8.4 Tf 48.00 240.50 Td (}) Tj ET
+BT /F3 8.4 Tf 48.00 229.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 217.50 Td (grid = GridSearchCV\() Tj ET
+BT /F3 8.4 Tf 48.00 206.00 Td (    estimator=model,) Tj ET
+BT /F3 8.4 Tf 48.00 194.50 Td (    param_grid=param_grid,) Tj ET
+BT /F3 8.4 Tf 48.00 183.00 Td (    cv=5,) Tj ET
+BT /F3 8.4 Tf 48.00 171.50 Td (    scoring="accuracy",) Tj ET
+BT /F3 8.4 Tf 48.00 160.00 Td (    n_jobs=-1) Tj ET
+BT /F3 8.4 Tf 48.00 148.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 137.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 125.50 Td (grid.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 114.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 102.50 Td (print\("Best parameters:", grid.best_params_\)) Tj ET
+BT /F3 8.4 Tf 48.00 91.00 Td (print\("Best CV score:", grid.best_score_\)) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 9) Tj ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 22 0 R >>
+endobj
+24 0 obj
+<< /Length 2412 >>
+stream
+BT /F2 14 Tf 48.00 774.00 Td (Important rule) Tj ET
+BT /F1 10.5 Tf 48.00 742.00 Td (Use training data for tuning. Use test data only once at the end for final evaluation.) Tj ET
+BT /F2 18 Tf 48.00 687.00 Td (5. SVM) Tj ET
+BT /F2 14 Tf 48.00 637.00 Td (Theory) Tj ET
+BT /F1 10.5 Tf 48.00 605.00 Td (SVM means Support Vector Machine. It is commonly used for classification.) Tj ET
+BT /F1 10.5 Tf 48.00 578.00 Td (SVM finds the best boundary between classes. The best boundary is the one with the) Tj ET
+BT /F1 10.5 Tf 48.00 563.00 Td (largest margin from the closest points of each class.) Tj ET
+BT /F3 8.4 Tf 48.00 535.00 Td (Class A         margin      boundary      margin         Class B) Tj ET
+BT /F3 8.4 Tf 48.00 523.50 Td (A A A                         |) Tj ET
+BT /F3 8.4 Tf 48.00 512.00 Td (A A                           |) Tj ET
+BT /F3 8.4 Tf 48.00 500.50 Td (A                             |                         B B B) Tj ET
+BT /F1 10.5 Tf 48.00 480.00 Td (The closest points to the boundary are called support vectors.) Tj ET
+BT /F2 14 Tf 48.00 443.00 Td (Kernel trick) Tj ET
+BT /F1 10.5 Tf 48.00 411.00 Td (If a straight line cannot separate classes, SVM can use a kernel to make a nonlinear) Tj ET
+BT /F1 10.5 Tf 48.00 396.00 Td (boundary.) Tj ET
+BT /F1 10.5 Tf 48.00 369.00 Td (Common kernels:) Tj ET
+BT /F3 8.4 Tf 48.00 341.00 Td (linear    Straight boundary) Tj ET
+BT /F3 8.4 Tf 48.00 329.50 Td (rbf       Curved boundary, most common) Tj ET
+BT /F3 8.4 Tf 48.00 318.00 Td (poly      Polynomial boundary) Tj ET
+BT /F3 8.4 Tf 48.00 306.50 Td (sigmoid   Neural-network-like boundary) Tj ET
+BT /F2 14 Tf 48.00 276.00 Td (Important SVM hyperparameters) Tj ET
+BT /F3 8.4 Tf 48.00 243.00 Td (C       Controls how strict the model is about mistakes.) Tj ET
+BT /F3 8.4 Tf 48.00 231.50 Td (gamma   Controls influence distance for rbf/poly/sigmoid kernels.) Tj ET
+BT /F3 8.4 Tf 48.00 220.00 Td (kernel  Controls boundary shape.) Tj ET
+BT /F1 10.5 Tf 48.00 199.50 Td (Small C allows more mistakes and creates a smoother boundary. Large C tries to avoid) Tj ET
+BT /F1 10.5 Tf 48.00 184.50 Td (mistakes but can overfit.) Tj ET
+BT /F1 10.5 Tf 48.00 157.50 Td (Small gamma creates smoother boundaries. Large gamma creates complex boundaries and) Tj ET
+BT /F1 10.5 Tf 48.00 142.50 Td (can overfit.) Tj ET
+BT /F2 14 Tf 48.00 105.50 Td (Important: scale features) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 10) Tj ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 24 0 R >>
+endobj
+26 0 obj
+<< /Length 3412 >>
+stream
+BT /F1 10.5 Tf 48.00 784.00 Td (SVM is sensitive to feature scale. Always scale numerical features before SVM.) Tj ET
+BT /F2 14 Tf 48.00 747.00 Td (SVM example with Pipeline) Tj ET
+BT /F3 8.4 Tf 48.00 714.00 Td (from sklearn.datasets import load_breast_cancer) Tj ET
+BT /F3 8.4 Tf 48.00 702.50 Td (from sklearn.model_selection import train_test_split) Tj ET
+BT /F3 8.4 Tf 48.00 691.00 Td (from sklearn.pipeline import Pipeline) Tj ET
+BT /F3 8.4 Tf 48.00 679.50 Td (from sklearn.preprocessing import StandardScaler) Tj ET
+BT /F3 8.4 Tf 48.00 668.00 Td (from sklearn.svm import SVC) Tj ET
+BT /F3 8.4 Tf 48.00 656.50 Td (from sklearn.metrics import accuracy_score, classification_report) Tj ET
+BT /F3 8.4 Tf 48.00 645.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 633.50 Td (data = load_breast_cancer\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 622.00 Td (X = data.data) Tj ET
+BT /F3 8.4 Tf 48.00 610.50 Td (y = data.target) Tj ET
+BT /F3 8.4 Tf 48.00 599.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 587.50 Td (X_train, X_test, y_train, y_test = train_test_split\() Tj ET
+BT /F3 8.4 Tf 48.00 576.00 Td (    X, y, test_size=0.2, random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 564.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 553.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 541.50 Td (pipeline = Pipeline\([) Tj ET
+BT /F3 8.4 Tf 48.00 530.00 Td (    \("scaler", StandardScaler\(\)\),) Tj ET
+BT /F3 8.4 Tf 48.00 518.50 Td (    \("svm", SVC\(kernel="rbf", C=1.0, gamma="scale"\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 507.00 Td (]\)) Tj ET
+BT /F3 8.4 Tf 48.00 495.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 484.00 Td (pipeline.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 472.50 Td (y_pred = pipeline.predict\(X_test\)) Tj ET
+BT /F3 8.4 Tf 48.00 461.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 449.50 Td (print\("Accuracy:", accuracy_score\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 438.00 Td (print\(classification_report\(y_test, y_pred\)\)) Tj ET
+BT /F2 14 Tf 48.00 407.50 Td (SVM with GridSearchCV) Tj ET
+BT /F3 8.4 Tf 48.00 374.50 Td (from sklearn.model_selection import GridSearchCV) Tj ET
+BT /F3 8.4 Tf 48.00 363.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 351.50 Td (pipeline = Pipeline\([) Tj ET
+BT /F3 8.4 Tf 48.00 340.00 Td (    \("scaler", StandardScaler\(\)\),) Tj ET
+BT /F3 8.4 Tf 48.00 328.50 Td (    \("svm", SVC\(\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 317.00 Td (]\)) Tj ET
+BT /F3 8.4 Tf 48.00 305.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 294.00 Td (param_grid = {) Tj ET
+BT /F3 8.4 Tf 48.00 282.50 Td (    "svm__kernel": ["linear", "rbf"],) Tj ET
+BT /F3 8.4 Tf 48.00 271.00 Td (    "svm__C": [0.1, 1, 10],) Tj ET
+BT /F3 8.4 Tf 48.00 259.50 Td (    "svm__gamma": ["scale", 0.01, 0.1, 1]) Tj ET
+BT /F3 8.4 Tf 48.00 248.00 Td (}) Tj ET
+BT /F3 8.4 Tf 48.00 236.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 225.00 Td (grid = GridSearchCV\() Tj ET
+BT /F3 8.4 Tf 48.00 213.50 Td (    pipeline,) Tj ET
+BT /F3 8.4 Tf 48.00 202.00 Td (    param_grid,) Tj ET
+BT /F3 8.4 Tf 48.00 190.50 Td (    cv=5,) Tj ET
+BT /F3 8.4 Tf 48.00 179.00 Td (    scoring="accuracy",) Tj ET
+BT /F3 8.4 Tf 48.00 167.50 Td (    n_jobs=-1) Tj ET
+BT /F3 8.4 Tf 48.00 156.00 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 144.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 133.00 Td (grid.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 121.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 110.00 Td (print\("Best parameters:", grid.best_params_\)) Tj ET
+BT /F3 8.4 Tf 48.00 98.50 Td (print\("Best CV score:", grid.best_score_\)) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 11) Tj ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 26 0 R >>
+endobj
+28 0 obj
+<< /Length 1905 >>
+stream
+BT /F2 14 Tf 48.00 774.00 Td (When to use SVM) Tj ET
+BT /F1 10.5 Tf 48.00 742.00 Td (Use SVM when:) Tj ET
+BT /F1 10.5 Tf 48.00 715.00 Td (- Dataset is small or medium) Tj ET
+BT /F1 10.5 Tf 48.00 696.00 Td (- Features are mostly numerical) Tj ET
+BT /F1 10.5 Tf 48.00 677.00 Td (- You can scale the data) Tj ET
+BT /F1 10.5 Tf 48.00 658.00 Td (- You need strong classification) Tj ET
+BT /F1 10.5 Tf 48.00 631.00 Td (Avoid SVM when:) Tj ET
+BT /F1 10.5 Tf 48.00 604.00 Td (- Dataset is very large) Tj ET
+BT /F1 10.5 Tf 48.00 585.00 Td (- Training speed is very important) Tj ET
+BT /F1 10.5 Tf 48.00 566.00 Td (- Interpretability is very important) Tj ET
+BT /F2 18 Tf 48.00 511.00 Td (6. Naive Bayes) Tj ET
+BT /F2 14 Tf 48.00 461.00 Td (Theory) Tj ET
+BT /F1 10.5 Tf 48.00 429.00 Td (Naive Bayes is a probability-based classifier. It predicts the class with the highest) Tj ET
+BT /F1 10.5 Tf 48.00 414.00 Td (probability.) Tj ET
+BT /F1 10.5 Tf 48.00 387.00 Td (Example:) Tj ET
+BT /F3 8.4 Tf 48.00 359.00 Td (Email text: "win free money") Tj ET
+BT /F3 8.4 Tf 48.00 347.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 336.00 Td (P\(spam | text\) = 0.92) Tj ET
+BT /F3 8.4 Tf 48.00 324.50 Td (P\(not spam | text\) = 0.08) Tj ET
+BT /F3 8.4 Tf 48.00 313.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 301.50 Td (Prediction = spam) Tj ET
+BT /F1 10.5 Tf 48.00 281.00 Td (It is called naive because it assumes features are independent. This assumption is) Tj ET
+BT /F1 10.5 Tf 48.00 266.00 Td (simple, but the model still works well for many text problems.) Tj ET
+BT /F2 14 Tf 48.00 229.00 Td (Bayes theorem) Tj ET
+BT /F3 8.4 Tf 48.00 196.00 Td (P\(Class | Data\) = P\(Data | Class\) * P\(Class\) / P\(Data\)) Tj ET
+BT /F1 10.5 Tf 48.00 175.50 Td (Meaning:) Tj ET
+BT /F3 8.4 Tf 48.00 147.50 Td (Probability of class after seeing the data) Tj ET
+BT /F2 14 Tf 48.00 117.00 Td (Types of Naive Bayes) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 12) Tj ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 28 0 R >>
+endobj
+30 0 obj
+<< /Length 3339 >>
+stream
+BT /F3 8.4 Tf 48.00 783.00 Td (GaussianNB      Continuous numerical features) Tj ET
+BT /F3 8.4 Tf 48.00 771.50 Td (MultinomialNB   Count features, useful for text) Tj ET
+BT /F3 8.4 Tf 48.00 760.00 Td (BernoulliNB     Binary features, such as word present/absent) Tj ET
+BT /F2 14 Tf 48.00 729.50 Td (Gaussian Naive Bayes example) Tj ET
+BT /F3 8.4 Tf 48.00 696.50 Td (from sklearn.datasets import load_iris) Tj ET
+BT /F3 8.4 Tf 48.00 685.00 Td (from sklearn.model_selection import train_test_split) Tj ET
+BT /F3 8.4 Tf 48.00 673.50 Td (from sklearn.naive_bayes import GaussianNB) Tj ET
+BT /F3 8.4 Tf 48.00 662.00 Td (from sklearn.metrics import accuracy_score, classification_report) Tj ET
+BT /F3 8.4 Tf 48.00 650.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 639.00 Td (data = load_iris\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 627.50 Td (X = data.data) Tj ET
+BT /F3 8.4 Tf 48.00 616.00 Td (y = data.target) Tj ET
+BT /F3 8.4 Tf 48.00 604.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 593.00 Td (X_train, X_test, y_train, y_test = train_test_split\() Tj ET
+BT /F3 8.4 Tf 48.00 581.50 Td (    X, y, test_size=0.2, random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 570.00 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 558.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 547.00 Td (model = GaussianNB\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 535.50 Td (model.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 524.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 512.50 Td (y_pred = model.predict\(X_test\)) Tj ET
+BT /F3 8.4 Tf 48.00 501.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 489.50 Td (print\("Accuracy:", accuracy_score\(y_test, y_pred\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 478.00 Td (print\(classification_report\(y_test, y_pred\)\)) Tj ET
+BT /F2 14 Tf 48.00 447.50 Td (Text classification example) Tj ET
+BT /F3 8.4 Tf 48.00 414.50 Td (from sklearn.feature_extraction.text import CountVectorizer) Tj ET
+BT /F3 8.4 Tf 48.00 403.00 Td (from sklearn.naive_bayes import MultinomialNB) Tj ET
+BT /F3 8.4 Tf 48.00 391.50 Td (from sklearn.pipeline import Pipeline) Tj ET
+BT /F3 8.4 Tf 48.00 380.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 368.50 Td (texts = [) Tj ET
+BT /F3 8.4 Tf 48.00 357.00 Td (    "win money now",) Tj ET
+BT /F3 8.4 Tf 48.00 345.50 Td (    "free prize winner",) Tj ET
+BT /F3 8.4 Tf 48.00 334.00 Td (    "hello how are you",) Tj ET
+BT /F3 8.4 Tf 48.00 322.50 Td (    "meeting tomorrow") Tj ET
+BT /F3 8.4 Tf 48.00 311.00 Td (]) Tj ET
+BT /F3 8.4 Tf 48.00 299.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 288.00 Td (labels = [) Tj ET
+BT /F3 8.4 Tf 48.00 276.50 Td (    "spam",) Tj ET
+BT /F3 8.4 Tf 48.00 265.00 Td (    "spam",) Tj ET
+BT /F3 8.4 Tf 48.00 253.50 Td (    "not spam",) Tj ET
+BT /F3 8.4 Tf 48.00 242.00 Td (    "not spam") Tj ET
+BT /F3 8.4 Tf 48.00 230.50 Td (]) Tj ET
+BT /F3 8.4 Tf 48.00 219.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 207.50 Td (model = Pipeline\([) Tj ET
+BT /F3 8.4 Tf 48.00 196.00 Td (    \("vectorizer", CountVectorizer\(\)\),) Tj ET
+BT /F3 8.4 Tf 48.00 184.50 Td (    \("nb", MultinomialNB\(\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 173.00 Td (]\)) Tj ET
+BT /F3 8.4 Tf 48.00 161.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 150.00 Td (model.fit\(texts, labels\)) Tj ET
+BT /F3 8.4 Tf 48.00 138.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 127.00 Td (prediction = model.predict\(["win free money"]\)) Tj ET
+BT /F3 8.4 Tf 48.00 115.50 Td (print\(prediction\)) Tj ET
+BT /F2 14 Tf 48.00 85.00 Td (Advantages) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 13) Tj ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 30 0 R >>
+endobj
+32 0 obj
+<< /Length 2134 >>
+stream
+BT /F1 10.5 Tf 48.00 784.00 Td (- Very fast) Tj ET
+BT /F1 10.5 Tf 48.00 765.00 Td (- Simple) Tj ET
+BT /F1 10.5 Tf 48.00 746.00 Td (- Works well for text classification) Tj ET
+BT /F1 10.5 Tf 48.00 727.00 Td (- Good baseline model) Tj ET
+BT /F1 10.5 Tf 48.00 708.00 Td (- Works with small datasets) Tj ET
+BT /F2 14 Tf 48.00 671.00 Td (Disadvantages) Tj ET
+BT /F1 10.5 Tf 48.00 639.00 Td (- Assumes features are independent) Tj ET
+BT /F1 10.5 Tf 48.00 620.00 Td (- May miss complex relationships) Tj ET
+BT /F1 10.5 Tf 48.00 601.00 Td (- Often less powerful than boosted trees for tabular data) Tj ET
+BT /F2 18 Tf 48.00 546.00 Td (7. Feature Engineering) Tj ET
+BT /F2 14 Tf 48.00 496.00 Td (Theory) Tj ET
+BT /F1 10.5 Tf 48.00 464.00 Td (Feature engineering means creating, changing, selecting, or transforming input columns) Tj ET
+BT /F1 10.5 Tf 48.00 449.00 Td (to make data more useful for machine learning.) Tj ET
+BT /F1 10.5 Tf 48.00 422.00 Td (Good features can improve model performance more than changing algorithms.) Tj ET
+BT /F2 14 Tf 48.00 385.00 Td (Common techniques) Tj ET
+BT /F3 8.4 Tf 48.00 352.00 Td (Handle missing values) Tj ET
+BT /F3 8.4 Tf 48.00 340.50 Td (Encode categorical columns) Tj ET
+BT /F3 8.4 Tf 48.00 329.00 Td (Scale numerical columns) Tj ET
+BT /F3 8.4 Tf 48.00 317.50 Td (Create new features) Tj ET
+BT /F3 8.4 Tf 48.00 306.00 Td (Extract date features) Tj ET
+BT /F3 8.4 Tf 48.00 294.50 Td (Remove useless columns) Tj ET
+BT /F2 14 Tf 48.00 264.00 Td (Handling missing values) Tj ET
+BT /F3 8.4 Tf 48.00 231.00 Td (from sklearn.impute import SimpleImputer) Tj ET
+BT /F3 8.4 Tf 48.00 219.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 208.00 Td (imputer = SimpleImputer\(strategy="mean"\)) Tj ET
+BT /F3 8.4 Tf 48.00 196.50 Td (X_filled = imputer.fit_transform\(X\)) Tj ET
+BT /F1 10.5 Tf 48.00 176.00 Td (Common strategies:) Tj ET
+BT /F3 8.4 Tf 48.00 148.00 Td (mean) Tj ET
+BT /F3 8.4 Tf 48.00 136.50 Td (median) Tj ET
+BT /F3 8.4 Tf 48.00 125.00 Td (most_frequent) Tj ET
+BT /F3 8.4 Tf 48.00 113.50 Td (constant) Tj ET
+BT /F2 14 Tf 48.00 83.00 Td (Encoding categorical data) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 14) Tj ET
+endstream
+endobj
+33 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 32 0 R >>
+endobj
+34 0 obj
+<< /Length 2436 >>
+stream
+BT /F1 10.5 Tf 48.00 784.00 Td (Machine learning models need numbers, not text.) Tj ET
+BT /F1 10.5 Tf 48.00 757.00 Td (One-hot encoding example:) Tj ET
+BT /F3 8.4 Tf 48.00 729.00 Td (City) Tj ET
+BT /F3 8.4 Tf 48.00 717.50 Td (Delhi) Tj ET
+BT /F3 8.4 Tf 48.00 706.00 Td (Mumbai) Tj ET
+BT /F3 8.4 Tf 48.00 694.50 Td (Chennai) Tj ET
+BT /F3 8.4 Tf 48.00 683.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 671.50 Td (Becomes:) Tj ET
+BT /F3 8.4 Tf 48.00 660.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 648.50 Td (City_Delhi  City_Mumbai  City_Chennai) Tj ET
+BT /F3 8.4 Tf 48.00 637.00 Td (1           0            0) Tj ET
+BT /F3 8.4 Tf 48.00 625.50 Td (0           1            0) Tj ET
+BT /F3 8.4 Tf 48.00 614.00 Td (0           0            1) Tj ET
+BT /F1 10.5 Tf 48.00 593.50 Td (Python:) Tj ET
+BT /F3 8.4 Tf 48.00 565.50 Td (from sklearn.preprocessing import OneHotEncoder) Tj ET
+BT /F3 8.4 Tf 48.00 554.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 542.50 Td (encoder = OneHotEncoder\(handle_unknown="ignore"\)) Tj ET
+BT /F3 8.4 Tf 48.00 531.00 Td (encoded = encoder.fit_transform\(X[["City"]]\)) Tj ET
+BT /F2 14 Tf 48.00 500.50 Td (Scaling numerical data) Tj ET
+BT /F1 10.5 Tf 48.00 468.50 Td (Scaling is important for SVM, KNN, logistic regression, linear regression, and neural) Tj ET
+BT /F1 10.5 Tf 48.00 453.50 Td (networks.) Tj ET
+BT /F3 8.4 Tf 48.00 425.50 Td (from sklearn.preprocessing import StandardScaler) Tj ET
+BT /F3 8.4 Tf 48.00 414.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 402.50 Td (scaler = StandardScaler\(\)) Tj ET
+BT /F3 8.4 Tf 48.00 391.00 Td (X_scaled = scaler.fit_transform\(X\)) Tj ET
+BT /F2 14 Tf 48.00 360.50 Td (Creating new features) Tj ET
+BT /F1 10.5 Tf 48.00 328.50 Td (Example: create BMI from height and weight.) Tj ET
+BT /F3 8.4 Tf 48.00 300.50 Td (df["BMI"] = df["Weight"] / \(df["Height"] ** 2\)) Tj ET
+BT /F2 14 Tf 48.00 270.00 Td (Date features) Tj ET
+BT /F3 8.4 Tf 48.00 237.00 Td (df["date"] = pd.to_datetime\(df["date"]\)) Tj ET
+BT /F3 8.4 Tf 48.00 225.50 Td (df["year"] = df["date"].dt.year) Tj ET
+BT /F3 8.4 Tf 48.00 214.00 Td (df["month"] = df["date"].dt.month) Tj ET
+BT /F3 8.4 Tf 48.00 202.50 Td (df["day"] = df["date"].dt.day) Tj ET
+BT /F3 8.4 Tf 48.00 191.00 Td (df["day_of_week"] = df["date"].dt.dayofweek) Tj ET
+BT /F3 8.4 Tf 48.00 179.50 Td (df["is_weekend"] = df["day_of_week"].isin\([5, 6]\).astype\(int\)) Tj ET
+BT /F2 14 Tf 48.00 149.00 Td (Full preprocessing example) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 15) Tj ET
+endstream
+endobj
+35 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 34 0 R >>
+endobj
+36 0 obj
+<< /Length 3683 >>
+stream
+BT /F3 8.4 Tf 48.00 783.00 Td (import pandas as pd) Tj ET
+BT /F3 8.4 Tf 48.00 771.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 760.00 Td (from sklearn.model_selection import train_test_split) Tj ET
+BT /F3 8.4 Tf 48.00 748.50 Td (from sklearn.compose import ColumnTransformer) Tj ET
+BT /F3 8.4 Tf 48.00 737.00 Td (from sklearn.pipeline import Pipeline) Tj ET
+BT /F3 8.4 Tf 48.00 725.50 Td (from sklearn.impute import SimpleImputer) Tj ET
+BT /F3 8.4 Tf 48.00 714.00 Td (from sklearn.preprocessing import StandardScaler, OneHotEncoder) Tj ET
+BT /F3 8.4 Tf 48.00 702.50 Td (from sklearn.ensemble import RandomForestClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 691.00 Td (from sklearn.metrics import accuracy_score) Tj ET
+BT /F3 8.4 Tf 48.00 679.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 668.00 Td (df = pd.DataFrame\({) Tj ET
+BT /F3 8.4 Tf 48.00 656.50 Td (    "Age": [25, None, 40, 35, 50],) Tj ET
+BT /F3 8.4 Tf 48.00 645.00 Td (    "Salary": [30000, 50000, None, 70000, 90000],) Tj ET
+BT /F3 8.4 Tf 48.00 633.50 Td (    "City": ["Delhi", "Mumbai", "Delhi", "Chennai", "Mumbai"],) Tj ET
+BT /F3 8.4 Tf 48.00 622.00 Td (    "Purchased": ["No", "Yes", "Yes", "No", "Yes"]) Tj ET
+BT /F3 8.4 Tf 48.00 610.50 Td (}\)) Tj ET
+BT /F3 8.4 Tf 48.00 599.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 587.50 Td (X = df.drop\("Purchased", axis=1\)) Tj ET
+BT /F3 8.4 Tf 48.00 576.00 Td (y = df["Purchased"]) Tj ET
+BT /F3 8.4 Tf 48.00 564.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 553.00 Td (numeric_features = ["Age", "Salary"]) Tj ET
+BT /F3 8.4 Tf 48.00 541.50 Td (categorical_features = ["City"]) Tj ET
+BT /F3 8.4 Tf 48.00 530.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 518.50 Td (numeric_transformer = Pipeline\([) Tj ET
+BT /F3 8.4 Tf 48.00 507.00 Td (    \("imputer", SimpleImputer\(strategy="mean"\)\),) Tj ET
+BT /F3 8.4 Tf 48.00 495.50 Td (    \("scaler", StandardScaler\(\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 484.00 Td (]\)) Tj ET
+BT /F3 8.4 Tf 48.00 472.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 461.00 Td (categorical_transformer = Pipeline\([) Tj ET
+BT /F3 8.4 Tf 48.00 449.50 Td (    \("imputer", SimpleImputer\(strategy="most_frequent"\)\),) Tj ET
+BT /F3 8.4 Tf 48.00 438.00 Td (    \("encoder", OneHotEncoder\(handle_unknown="ignore"\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 426.50 Td (]\)) Tj ET
+BT /F3 8.4 Tf 48.00 415.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 403.50 Td (preprocessor = ColumnTransformer\([) Tj ET
+BT /F3 8.4 Tf 48.00 392.00 Td (    \("num", numeric_transformer, numeric_features\),) Tj ET
+BT /F3 8.4 Tf 48.00 380.50 Td (    \("cat", categorical_transformer, categorical_features\)) Tj ET
+BT /F3 8.4 Tf 48.00 369.00 Td (]\)) Tj ET
+BT /F3 8.4 Tf 48.00 357.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 346.00 Td (model = Pipeline\([) Tj ET
+BT /F3 8.4 Tf 48.00 334.50 Td (    \("preprocessor", preprocessor\),) Tj ET
+BT /F3 8.4 Tf 48.00 323.00 Td (    \("classifier", RandomForestClassifier\(random_state=42\)\)) Tj ET
+BT /F3 8.4 Tf 48.00 311.50 Td (]\)) Tj ET
+BT /F3 8.4 Tf 48.00 300.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 288.50 Td (X_train, X_test, y_train, y_test = train_test_split\() Tj ET
+BT /F3 8.4 Tf 48.00 277.00 Td (    X, y, test_size=0.2, random_state=42) Tj ET
+BT /F3 8.4 Tf 48.00 265.50 Td (\)) Tj ET
+BT /F3 8.4 Tf 48.00 254.00 Td () Tj ET
+BT /F3 8.4 Tf 48.00 242.50 Td (model.fit\(X_train, y_train\)) Tj ET
+BT /F3 8.4 Tf 48.00 231.00 Td (y_pred = model.predict\(X_test\)) Tj ET
+BT /F3 8.4 Tf 48.00 219.50 Td () Tj ET
+BT /F3 8.4 Tf 48.00 208.00 Td (print\("Accuracy:", accuracy_score\(y_test, y_pred\)\)) Tj ET
+BT /F2 18 Tf 48.00 159.50 Td (8. Mini Project Workflow) Tj ET
+BT /F1 10.5 Tf 48.00 119.50 Td (Use this workflow to practice Phase 2.) Tj ET
+BT /F2 14 Tf 48.00 82.50 Td (Step-by-step project) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 16) Tj ET
+endstream
+endobj
+37 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 36 0 R >>
+endobj
+38 0 obj
+<< /Length 2474 >>
+stream
+BT /F1 10.5 Tf 48.00 784.00 Td (1. Choose a dataset.) Tj ET
+BT /F1 10.5 Tf 48.00 765.00 Td (2. Define the target column.) Tj ET
+BT /F1 10.5 Tf 48.00 746.00 Td (3. Split into train and test data.) Tj ET
+BT /F1 10.5 Tf 48.00 727.00 Td (4. Build preprocessing with Pipeline and ColumnTransformer.) Tj ET
+BT /F1 10.5 Tf 48.00 708.00 Td (5. Train baseline models.) Tj ET
+BT /F1 10.5 Tf 48.00 689.00 Td (6. Evaluate with correct metrics.) Tj ET
+BT /F1 10.5 Tf 48.00 670.00 Td (7. Use cross validation.) Tj ET
+BT /F1 10.5 Tf 48.00 651.00 Td (8. Tune hyperparameters with GridSearchCV or RandomizedSearchCV.) Tj ET
+BT /F1 10.5 Tf 48.00 632.00 Td (9. Compare models.) Tj ET
+BT /F1 10.5 Tf 48.00 613.00 Td (10. Evaluate the final model once on the test set.) Tj ET
+BT /F2 14 Tf 48.00 576.00 Td (Example models to compare) Tj ET
+BT /F3 8.4 Tf 48.00 543.00 Td (Logistic Regression) Tj ET
+BT /F3 8.4 Tf 48.00 531.50 Td (Random Forest) Tj ET
+BT /F3 8.4 Tf 48.00 520.00 Td (XGBoost) Tj ET
+BT /F3 8.4 Tf 48.00 508.50 Td (SVM) Tj ET
+BT /F3 8.4 Tf 48.00 497.00 Td (Naive Bayes) Tj ET
+BT /F2 14 Tf 48.00 466.50 Td (Practice task) Tj ET
+BT /F1 10.5 Tf 48.00 434.50 Td (Use the breast cancer dataset and compare:) Tj ET
+BT /F3 8.4 Tf 48.00 406.50 Td (RandomForestClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 395.00 Td (XGBClassifier) Tj ET
+BT /F3 8.4 Tf 48.00 383.50 Td (SVC) Tj ET
+BT /F3 8.4 Tf 48.00 372.00 Td (GaussianNB) Tj ET
+BT /F1 10.5 Tf 48.00 351.50 Td (Print:) Tj ET
+BT /F3 8.4 Tf 48.00 323.50 Td (Accuracy) Tj ET
+BT /F3 8.4 Tf 48.00 312.00 Td (Precision) Tj ET
+BT /F3 8.4 Tf 48.00 300.50 Td (Recall) Tj ET
+BT /F3 8.4 Tf 48.00 289.00 Td (F1-score) Tj ET
+BT /F3 8.4 Tf 48.00 277.50 Td (Confusion matrix) Tj ET
+BT /F1 10.5 Tf 48.00 257.00 Td (Then tune one model with GridSearchCV.) Tj ET
+BT /F2 14 Tf 48.00 220.00 Td (Final memory points) Tj ET
+BT /F3 8.4 Tf 48.00 187.00 Td (XGBoost: powerful boosting model for tabular data.) Tj ET
+BT /F3 8.4 Tf 48.00 175.50 Td (Cross validation: more reliable evaluation.) Tj ET
+BT /F3 8.4 Tf 48.00 164.00 Td (Metrics: choose metric based on the problem.) Tj ET
+BT /F3 8.4 Tf 48.00 152.50 Td (GridSearchCV: searches best hyperparameters using CV.) Tj ET
+BT /F3 8.4 Tf 48.00 141.00 Td (SVM: finds maximum-margin boundary.) Tj ET
+BT /F3 8.4 Tf 48.00 129.50 Td (Naive Bayes: probability-based classifier, great for text.) Tj ET
+BT /F3 8.4 Tf 48.00 118.00 Td (Feature engineering: improves input data quality.) Tj ET
+BT /F1 8 Tf 277.50 28.00 Td (Page 17) Tj ET
+endstream
+endobj
+39 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 38 0 R >>
+endobj
+xref
+0 40
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000233 00000 n 
+0000000303 00000 n 
+0000000378 00000 n 
+0000000446 00000 n 
+0000002361 00000 n 
+0000002507 00000 n 
+0000005957 00000 n 
+0000006103 00000 n 
+0000009022 00000 n 
+0000009170 00000 n 
+0000011879 00000 n 
+0000012027 00000 n 
+0000014830 00000 n 
+0000014978 00000 n 
+0000018376 00000 n 
+0000018524 00000 n 
+0000021147 00000 n 
+0000021295 00000 n 
+0000024658 00000 n 
+0000024806 00000 n 
+0000028381 00000 n 
+0000028529 00000 n 
+0000030994 00000 n 
+0000031142 00000 n 
+0000034607 00000 n 
+0000034755 00000 n 
+0000036713 00000 n 
+0000036861 00000 n 
+0000040253 00000 n 
+0000040401 00000 n 
+0000042588 00000 n 
+0000042736 00000 n 
+0000045225 00000 n 
+0000045373 00000 n 
+0000049109 00000 n 
+0000049257 00000 n 
+0000051784 00000 n 
+trailer
+<< /Size 40 /Root 1 0 R >>
+startxref
+51932
+%%EOF
