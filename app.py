@@ -1,16 +1,18 @@
 import os
 import sys
+import json
 import contextvars
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List, Dict, Any, TypedDict
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from langchain_groq import ChatGroq
 from langchain_core.tools import tool
+from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-from deepagents import create_deep_agent
+from langgraph.graph import StateGraph, START, END
 
 # Ensure the project root is in the Python search path
 project_root = Path(__file__).resolve().parent
@@ -126,6 +128,146 @@ def retrieve_pdf_context(query: str) -> str:
     return "\n\n".join(formatted)
 
 
+# --- Lightweight LangGraph Multi-Agent Architecture ---
+
+class AgentState(TypedDict):
+    messages: List[BaseMessage]
+    next_agent: str
+    sources: List[Dict[str, Any]]
+    reports: List[str]
+    query: str
+    subquery: str
+
+def build_lightweight_workflow(llm):
+    async def supervisor_node(state: AgentState) -> Dict[str, Any]:
+        """LangGraph Node: Lightweight Supervisor routes user query to Math or RAG directly"""
+        supervisor_prompt = f"""You are the orchestrating Supervisor Agent. Decide who should handle this task:
+1. 'math_agent' (for additions, multiplications, divisions).
+2. 'rag_agent' (for document searches: resumes, python guides, ML).
+3. 'compiler' (if no tools are needed, or we already have the answers).
+
+User Query: "{state['query']}"
+
+Respond in JSON format:
+{{
+  "next": "math_agent" or "rag_agent" or "compiler",
+  "subquery": "query/parameters to send to the agent or null"
+}}
+
+Respond with ONLY the raw JSON string."""
+
+        res = (await llm.ainvoke(supervisor_prompt)).content.strip()
+        if res.startswith("```"):
+            res = res.split("```")[1]
+            if res.startswith("json"):
+                res = res[4:]
+                
+        delegation = json.loads(res.strip())
+        next_step = delegation.get("next", "compiler")
+        subquery = delegation.get("subquery", state['query'])
+
+        return {
+            "next_agent": next_step,
+            "subquery": subquery
+        }
+
+    async def math_agent_node(state: AgentState) -> Dict[str, Any]:
+        """LangGraph Node: Directly calls math MCP wrapper without heavy deepagents wrappers"""
+        subquery = state.get("subquery") or state['query']
+        # Ask LLM to format args for call_mcp_tool
+        parse_prompt = f"""Parse this math query: "{subquery}"
+Respond in JSON: {{"tool": "add/multiply/divide", "a": number, "b": number}}
+Respond with ONLY raw JSON."""
+        
+        parse_res = (await llm.ainvoke(parse_prompt)).content.strip()
+        if parse_res.startswith("```"):
+            parse_res = parse_res.split("```")[1]
+            if parse_res.startswith("json"):
+                parse_res = parse_res[4:]
+        
+        parsed = json.loads(parse_res.strip())
+        tool_name = parsed["tool"]
+        args = {"a": float(parsed["a"]), "b": float(parsed["b"])}
+        
+        result = await call_mcp_tool(tool_name, args)
+        reports = list(state['reports'])
+        reports.append(f"Math calculation result: {result}")
+        
+        return {
+            "reports": reports,
+            "next_agent": "compiler"
+        }
+
+    async def rag_agent_node(state: AgentState) -> Dict[str, Any]:
+        """LangGraph Node: Directly calls vector store lookup without heavy deepagents wrappers"""
+        subquery = state.get("subquery") or state['query']
+        result = retrieve_pdf_context.invoke(subquery)
+        
+        reports = list(state['reports'])
+        reports.append(f"Document search result:\n{result}")
+        
+        sources = list(state['sources'])
+        sources.extend(request_sources.get())
+        
+        return {
+            "sources": sources,
+            "reports": reports,
+            "next_agent": "compiler"
+        }
+
+    async def compiler_node(state: AgentState) -> Dict[str, Any]:
+        """LangGraph Node: Compiles worker reports or answers directly"""
+        if not state['reports']:
+            response = await llm.ainvoke(state['query'])
+            ans = response.content
+        else:
+            reports_str = "\n\n".join(state['reports'])
+            compilation_prompt = f"""You are the Supervisor Agent. Compile a final response for the user based on the reports from your worker agents.
+Use the worker reports to answer the query accurately.
+
+User Query: "{state['query']}"
+
+Worker Reports:
+{reports_str}
+
+Final Answer:"""
+
+            response = await llm.ainvoke(compilation_prompt)
+            ans = response.content
+            
+        new_messages = list(state['messages'])
+        new_messages.append(AIMessage(content=ans))
+        
+        return {
+            "messages": new_messages
+        }
+
+    # Assemble graph
+    workflow = StateGraph(AgentState)
+    workflow.add_node("supervisor", supervisor_node)
+    workflow.add_node("math_agent", math_agent_node)
+    workflow.add_node("rag_agent", rag_agent_node)
+    workflow.add_node("compiler", compiler_node)
+    
+    workflow.set_entry_point("supervisor")
+    
+    workflow.add_conditional_edges(
+        "supervisor",
+        lambda state: state["next_agent"],
+        {
+            "math_agent": "math_agent",
+            "rag_agent": "rag_agent",
+            "compiler": "compiler"
+        }
+    )
+    
+    workflow.add_edge("math_agent", "compiler")
+    workflow.add_edge("rag_agent", "compiler")
+    workflow.add_edge("compiler", END)
+    
+    return workflow.compile()
+
+
 class ChatRequest(BaseModel):
     message: str
     top_k: Optional[int] = 3
@@ -162,7 +304,7 @@ def trigger_ingest():
 
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
-    """Query the RAG pipeline using the imported deepagents library, calling mcp_server for math operations"""
+    """Query the RAG pipeline using a lightweight LangGraph Multi-Agent architecture"""
     if not request.message.strip():
         raise HTTPException(status_code=400, detail="Query message cannot be empty")
         
@@ -184,21 +326,24 @@ async def chat(request: ChatRequest):
             api_key=groq_api_key
         )
 
-        # Initialize the Deep Agent from deepagents library
-        agent = create_deep_agent(
-            model=llm,
-            tools=[add, multiply, divide, retrieve_pdf_context],
-            system_prompt=(
-                "You are a helpful Deep Reasoning Agent. You have access to tools: add, multiply, divide, and retrieve_pdf_context.\n"
-                "IMPORTANT: When calling a tool, you MUST output the tool arguments directly in the JSON object inside the function tags, e.g. <function=multiply>{\"a\": 2, \"b\": 5}</function>.\n"
-                "DO NOT wrap the arguments in a \"parameters\" key or a \"type\" key. The JSON object must contain only the raw parameters defined by the tool."
-            )
-        )
+        # Build and compile graph
+        graph = build_lightweight_workflow(llm)
 
-        # Invoke the agent asynchronously
-        response = await agent.ainvoke({"messages": [("user", request.message)]})
-        answer = response["messages"][-1].content
-        sources = request_sources.get()
+        # Initialize state variables
+        initial_state = {
+            "messages": [HumanMessage(content=request.message)],
+            "next_agent": "",
+            "sources": [],
+            "reports": [],
+            "query": request.message,
+            "subquery": ""
+        }
+
+        # Execute LangGraph workflow
+        final_state = await graph.ainvoke(initial_state)
+        
+        answer = final_state["messages"][-1].content
+        sources = final_state["sources"]
 
         return {
             "answer": answer,
