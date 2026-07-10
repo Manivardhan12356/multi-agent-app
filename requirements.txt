@@ -10,4 +10,4 @@ fastapi
 uvicorn
 fastmcp
 deepagents
-
+langchain-groq
