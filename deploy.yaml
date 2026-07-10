@@ -1,0 +1,143 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rag-vector-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-config
+data:
+  # The public URL of the backend API as accessible from the browser client
+  NEXT_PUBLIC_API_URL: "http://rag-backend-route-your-project.apps.your-cluster.com"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rag-secret
+type: Opaque
+stringData:
+  GROQ_API_KEY: "your-groq-api-key-here"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-backend
+  labels:
+    app: rag-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-backend
+  template:
+    metadata:
+      labels:
+        app: rag-backend
+    spec:
+      containers:
+        - name: backend
+          image: image-registry.openshift-image-registry.svc:5000/my-project/rag-backend:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: GROQ_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rag-secret
+                  key: GROQ_API_KEY
+          volumeMounts:
+            - name: db-volume
+              mountPath: /app/data
+      volumes:
+        - name: db-volume
+          persistentVolumeClaim:
+            claimName: rag-vector-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-backend
+  labels:
+    app: rag-backend
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: rag-backend
+---
+# Expose the backend API externally so the client browser can query it
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rag-backend
+spec:
+  to:
+    kind: Service
+    name: rag-backend
+  port:
+    targetPort: 8000
+  tls:
+    termination: edge
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-frontend
+  labels:
+    app: rag-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-frontend
+  template:
+    metadata:
+      labels:
+        app: rag-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: image-registry.openshift-image-registry.svc:5000/my-project/rag-frontend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NEXT_PUBLIC_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: rag-config
+                  key: NEXT_PUBLIC_API_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-frontend
+  labels:
+    app: rag-frontend
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: rag-frontend
+---
+# Expose the Next.js frontend UI externally
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: rag-frontend
+spec:
+  to:
+    kind: Service
+    name: rag-frontend
+  port:
+    targetPort: 3000
+  tls:
+    termination: edge
