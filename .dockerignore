@@ -1,0 +1,16 @@
+.git
+.venv
+.python-version
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.db
+data/vector_store
+node_modules
+frontend/node_modules
+frontend/.next
+frontend/out
+.env
+.ipynb_checkpoints
+notebooks
