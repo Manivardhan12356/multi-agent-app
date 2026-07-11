@@ -46,7 +46,7 @@ export default function Home() {
   const [selectedSource, setSelectedSource] = useState<Source | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
   // Scroll to bottom of messages
   const scrollToBottom = () => {
@@ -149,7 +149,7 @@ export default function Home() {
         {
           id: (Date.now() + 1).toString(),
           role: "assistant",
-          text: "Failed to connect to the backend server. Make sure the FastAPI backend is running on http://127.0.0.1:8000.",
+          text: "Failed to connect to the backend server. Make sure the FastAPI backend is running and accessible.",
         },
       ]);
     } finally {
