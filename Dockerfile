@@ -15,6 +15,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application files
 COPY . .
 
+# OpenShift compliance: make directories writable by group 0 (root group)
+RUN chgrp -R 0 /app && chmod -R g+w /app
+
 # Expose FastAPI default port
 EXPOSE 8000
 
