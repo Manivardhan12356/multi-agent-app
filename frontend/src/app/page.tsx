@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { 
-  Send, 
-  Bot, 
-  User, 
-  RefreshCw, 
-  FileText, 
-  Database, 
-  ChevronRight, 
-  AlertCircle, 
+import {
+  Send,
+  Bot,
+  User,
+  RefreshCw,
+  FileText,
+  Database,
+  ChevronRight,
+  AlertCircle,
   Sparkles,
   BookOpen,
   CheckCircle2,
@@ -48,7 +48,7 @@ export default function Home() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
-  // Scroll to bottom of messages
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -163,10 +163,10 @@ export default function Home() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-transparent">
-      
+
       {/* 1. Main Chat Area */}
       <div className="flex flex-col flex-1 h-full min-w-0 border-r border-white/5">
-        
+
         {/* Header */}
         <header className="flex items-center justify-between px-6 py-4 glass-panel border-b border-white/5">
           <div className="flex items-center gap-3">
@@ -184,13 +184,13 @@ export default function Home() {
               <p className="text-xs text-gray-400">Powered by Llama 3.3 70B & SentenceTransformers</p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 text-xs text-gray-300 border border-white/5">
               <Database className="w-4 h-4 text-purple-400" />
               <span>Chunks: <strong className="text-white">{dbChunks !== null ? dbChunks : "Loading..."}</strong></span>
             </div>
-            
+
             <button
               onClick={handleIngestion}
               disabled={isIngesting}
@@ -214,17 +214,15 @@ export default function Home() {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex gap-4 max-w-3xl ${
-                msg.role === "user" ? "ml-auto flex-row-reverse" : "mr-auto"
-              }`}
+              className={`flex gap-4 max-w-3xl ${msg.role === "user" ? "ml-auto flex-row-reverse" : "mr-auto"
+                }`}
             >
               {/* Avatar */}
               <div
-                className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 border ${
-                  msg.role === "user"
+                className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 border ${msg.role === "user"
                     ? "bg-purple-600/10 border-purple-500/30 text-purple-400"
                     : "bg-white/5 border-white/5 text-gray-400"
-                }`}
+                  }`}
               >
                 {msg.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
               </div>
@@ -232,11 +230,10 @@ export default function Home() {
               {/* Message bubble */}
               <div className="space-y-3">
                 <div
-                  className={`px-4 py-3 rounded-2xl text-sm leading-relaxed border ${
-                    msg.role === "user"
+                  className={`px-4 py-3 rounded-2xl text-sm leading-relaxed border ${msg.role === "user"
                       ? "bg-gradient-to-br from-purple-700/80 to-purple-800/80 border-purple-500/20 text-white shadow-md shadow-purple-900/10"
                       : "glass-card text-gray-200"
-                  }`}
+                    }`}
                 >
                   <p className="whitespace-pre-wrap">{msg.text}</p>
                 </div>
@@ -248,11 +245,10 @@ export default function Home() {
                       <button
                         key={i}
                         onClick={() => setSelectedSource(src)}
-                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs transition-all border cursor-pointer ${
-                          selectedSource === src
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs transition-all border cursor-pointer ${selectedSource === src
                             ? "bg-purple-600/20 border-purple-500/40 text-purple-300 shadow-sm"
                             : "bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
-                        }`}
+                          }`}
                       >
                         <FileText className="w-3 h-3 text-purple-400" />
                         <span className="max-w-[120px] truncate">{src.source}</span>
@@ -365,19 +361,19 @@ export default function Home() {
               <BookOpen className="w-4 h-4 text-purple-400" />
               <span className="text-sm font-bold text-white">Source Inspector</span>
             </div>
-            <button 
+            <button
               onClick={() => setSelectedSource(null)}
               className="text-xs text-gray-400 hover:text-white px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
             >
               Close
             </button>
           </header>
-          
+
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 space-y-2">
               <div className="text-[10px] uppercase font-bold tracking-wider text-purple-400">File Name</div>
               <div className="text-sm font-semibold text-white break-words">{selectedSource.source}</div>
-              
+
               <div className="flex justify-between items-center pt-2 text-xs text-gray-400">
                 <span>Page: <strong className="text-white">{selectedSource.page}</strong></span>
                 {selectedSource.distance !== undefined && (
@@ -393,7 +389,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
+
           <footer className="p-4 border-t border-white/5 text-[10px] text-gray-500 text-center">
             This chunk was matched via cosine similarity vectors.
           </footer>
