@@ -57,7 +57,7 @@ vector_store = VectorStore(
 )
 
 # Configure parameters to launch our separate mcp_server.py stdio process
-python_executable = str(project_root / ".venv" / "bin" / "python")
+python_executable = sys.executable
 mcp_script = str(project_root / "mcp_server.py")
 mcp_params = StdioServerParameters(
     command=python_executable,
